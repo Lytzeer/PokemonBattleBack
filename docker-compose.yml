@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+      - MARIADB_DATABASE=pokemon_battle
+      - TZ=Europe/Paris
+    volumes:
+      - ./db:/var/lib/mysql
+    ports:
+      - "127.0.0.1:3342:3306"
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=
+      - TZ=Europe/Paris
+    ports:
+      - "127.0.0.1:8080:80"
