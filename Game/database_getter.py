@@ -121,7 +121,14 @@ def get_last_user_pokemon(cur, user_id):
     last_pokemons = []
     last_pokemons.append(user_pokemon[-1])
     last_pokemons.append(user_pokemon[-2])
-    return last_pokemons
+    pokemon_infos = []
+    for pokemon in last_pokemons:
+        pokemon_info = get_pokemon_by_id(cur, pokemon["pokemon_id"])
+        pokemon_type = get_pokemon_types_by_id(cur, pokemon["pokemon_id"])
+        pokemon_info[0]["types"] = pokemon_type
+        pokemon_infos.append(pokemon_info[0])
+
+    return pokemon_infos
 
 def get_user_info(cur, username):
     cur.execute("SELECT user_id FROM users WHERE username = ?", (username,))
