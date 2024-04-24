@@ -78,7 +78,7 @@ def list_user_info(username):
     if data == None:
         return jsonify({"error": "User not found"}), 404
     else:
-        return {"last_pokemon": data[0], "money": data[1], "standing_position": data[2]}
+        return {"username": username,"last_pokemon": data[0], "money": data[1], "standing_position": data[2]}
     
 
 if __name__ == '__main__':
