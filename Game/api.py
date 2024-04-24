@@ -3,6 +3,7 @@ from Getter.pokemon_getter import get_pokemon, get_pokemon_by_id, get_pokemon_ty
 from Getter.move_getter import get_move, get_move_by_id
 from Getter.users_getter import get_user_info
 from Getter.standing_getter import get_standings
+from Getter.types_getter import get_type, get_type_by_id
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 
@@ -66,6 +67,16 @@ def list_user_info(username):
 @app.route('/standing/')
 def list_standing():
     return jsonify(get_standings(cur)), 200
+
+@app.route('/type')
+@app.route('/type/')
+def list_type():
+    return jsonify(get_type(cur)), 200
+
+@app.route('/type/<int:type_id>')
+@app.route('/type/<int:type_id>/')
+def list_type_by_id(type_id):
+    return jsonify(get_type_by_id(cur, type_id)), 200
 
 
 if __name__ == '__main__':
