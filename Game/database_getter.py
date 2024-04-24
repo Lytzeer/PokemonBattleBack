@@ -168,3 +168,12 @@ def get_standing_index(cur, username):
         return {"error": "User not found"}
     else:
         return index
+
+def get_standings(cur):
+    cur.execute("SELECT username, money FROM users ORDER BY money DESC")
+    standings = []
+    i=1
+    for (username, money) in cur:
+        standings.append({"rank":i,"username": username, "money": money})
+        i+=1
+    return standings

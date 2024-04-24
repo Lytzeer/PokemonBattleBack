@@ -1,6 +1,6 @@
 import mariadb
 import sys
-from database_getter import get_pokemon,get_pokemon_by_id, get_move_by_id, get_pokemon_types_by_id, get_move, get_pokemon_moves_by_id, get_user_pokemon, get_user_info
+from database_getter import get_pokemon,get_pokemon_by_id, get_move_by_id, get_pokemon_types_by_id, get_move, get_pokemon_moves_by_id, get_user_pokemon, get_user_info, get_standings
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 
@@ -79,7 +79,11 @@ def list_user_info(username):
         return jsonify({"error": "User not found"}), 404
     else:
         return {"username": username,"last_pokemon": data[0], "money": data[1], "standing_position": data[2]}
-    
+
+@app.route('/standing')
+@app.route('/standing/')
+def list_standing():
+    return jsonify(get_standings(cur)), 200
 
 if __name__ == '__main__':
     app.run()
