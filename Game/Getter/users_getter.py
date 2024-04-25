@@ -51,3 +51,9 @@ def find_index_user(users, user_id):
         if users[i]["user_id"] == user_id:
             return i+1
     return -1
+
+def get_money(cur, username):
+    user_id = get_user_id(cur, username)
+    cur.execute("SELECT money FROM users WHERE user_id = ?", (user_id,))
+    money = cur.fetchone()
+    return money[0]

@@ -4,6 +4,9 @@ from Getter.move_getter import get_move, get_move_by_id
 from Getter.users_getter import get_user_info
 from Getter.standing_getter import get_standings
 from Getter.types_getter import get_type, get_type_by_id
+from Getter.pokeball_getter import get_pokeballs
+from Getter.eggs_getter import get_eggs
+from Setter.user_setter import set_user_buy_pokeball
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 
@@ -77,6 +80,21 @@ def list_type():
 @app.route('/type/<int:type_id>/')
 def list_type_by_id(type_id):
     return jsonify(get_type_by_id(cur, type_id)), 200
+
+@app.route('/buy/<string:username>/<string:articles>/<int:number>/<int:price>')
+@app.route('/buy/<string:username>/<string:articles>/<int:number>/<int:price>/')
+def buy_article(username, articles, number, price):
+    return set_user_buy_pokeball(cur, username, number, articles, price), 200
+
+@app.route('/pokeball')
+@app.route('/pokeball/')
+def list_pokeball():
+    return jsonify(get_pokeballs(cur)), 200
+
+@app.route('/egg')
+@app.route('/egg/')
+def list_egg():
+    return jsonify(get_eggs(cur)), 200
 
 
 if __name__ == '__main__':
