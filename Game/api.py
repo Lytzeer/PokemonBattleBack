@@ -1,12 +1,12 @@
 from Database_Connector.connect_db import connect
-from Getter.pokemon_getter import get_pokemon, get_pokemon_by_id, get_pokemon_types_by_id, get_pokemon_moves_by_id, get_user_pokemon
-from Getter.move_getter import get_move, get_move_by_id
-from Getter.users_getter import get_user_info
-from Getter.standing_getter import get_standings
-from Getter.types_getter import get_type, get_type_by_id
-from Getter.pokeball_getter import get_pokeballs
-from Getter.eggs_getter import get_eggs
-from Setter.user_setter import set_user_buy_pokeball
+from Api_func.pokemon_getter import get_pokemon, get_pokemon_by_id, get_pokemon_types_by_id, get_pokemon_moves_by_id, get_user_pokemon
+from Api_func.move_getter import get_move, get_move_by_id
+from Api_func.users_getter import get_user_info
+from Api_func.standing_getter import get_standings
+from Api_func.types_getter import get_type, get_type_by_id
+from Api_func.pokeball_getter import get_pokeballs
+from Api_func.eggs_getter import get_eggs
+from Api_func.user_setter import set_user_buy_pokeball
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 

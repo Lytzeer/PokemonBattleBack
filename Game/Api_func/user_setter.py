@@ -1,5 +1,5 @@
-from ..Getter.users_getter import get_user_id, get_money
-from ..Getter.pokeball_getter import get_pokeball_id
+from .users_getter import get_user_id, get_money
+from .pokeball_getter import get_pokeball_by_id
 
 def set_money(cur, username, money):
     user_id = get_user_id(cur, username)
@@ -9,7 +9,7 @@ def set_money(cur, username, money):
 
 def set_user_buy_pokeball(cur, username, amount, article, price):
     user_id = get_user_id(cur, username)
-    pokeball_id = get_pokeball_id(cur, article)
+    pokeball_id = get_pokeball_by_id(cur, article)["pokeball_id"]
     set_money(cur, username, amount*price)
     cur.execute("INSERT INTO user_pokeball (user_id, pokeball_id, amount) VALUES (%s, %s, %s)", (user_id, pokeball_id, amount))
     return {"message": "Pokeball bought successfully", "article": article, "amount": amount, "price": amount*price}
