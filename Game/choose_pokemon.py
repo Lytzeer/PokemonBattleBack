@@ -1,6 +1,6 @@
 from requests import get
 from random import randint
-from connect_db import connect
+from Database_Connector.connect_db import connect
 
 def get_pokemon():
     response = get("http://localhost:5000/pokemon")
