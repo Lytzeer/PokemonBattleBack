@@ -9,6 +9,7 @@ from Api_func.eggs_getter import get_eggs
 from Api_func.user_setter import set_user_buy_pokeball
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
+from json import load
 
 
 app = Flask(__name__)
@@ -99,4 +100,6 @@ def list_egg():
 
 if __name__ == '__main__':
     cur = connect()
-    app.run(host='127.0.0.1', port=5000, debug=False)
+    with open('./Game/Config/api_conf.json', 'r') as file:
+        config = load(file)
+    app.run(host=config["host"], port=config["port"], debug=config["debug"])
