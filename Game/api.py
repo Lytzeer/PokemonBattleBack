@@ -97,6 +97,11 @@ def list_pokeball():
 def list_egg():
     return jsonify(get_eggs(cur)), 200
 
+@app.route('/shop')
+@app.route('/shop/')
+def shop():
+    return jsonify({"pokeballs": get_pokeballs(cur), "eggs": get_eggs(cur)}), 200
+
 
 if __name__ == '__main__':
     cur = connect()
