@@ -5,7 +5,7 @@ from .pokemon_getter import get_random_pokemon
 def set_money(cur, username, money):
     user_id = get_user_id(cur, username)
     current_money = get_money(cur, username)
-    cur.execute("UPDATE users SET money = %s WHERE id = %s", (current_money-money, user_id))
+    cur.execute("UPDATE users SET money = %s WHERE user_id = %s", (current_money-money, user_id))
     return {"message": "Money updated successfully", "username": username, "money": current_money-money}
 
 def set_user_buy_items(cur, username, amount, article, price):
