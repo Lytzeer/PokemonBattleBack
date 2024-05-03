@@ -1,5 +1,6 @@
 from .types_getter import get_type_by_id
 from .move_getter import get_move_by_id
+from random import randint
 
 def get_pokemon(cur):
     cur.execute("SELECT * FROM pokemon")
@@ -39,3 +40,12 @@ def get_user_pokemon(cur, user_id):
     for (user_id, pokemon_id) in cur:
         user_pokemon.append({"user_id": user_id, "pokemon_id": pokemon_id})
     return user_pokemon
+
+def get_random_pokemon(cur):
+    max_nb = cur.execute("SELECT COUNT(*) FROM pokemon")
+    rnb = randint(1,max_nb)
+    cur.execute("SELECT * FROM pokemon WHERE pokemon_id = ?", (rnb))
+    pokemon = []
+    for (pokemon_id, pokedex_id, name, height, weight) in cur:
+        pokemon.append({"pokemon_id": pokemon_id, "pokedex_id": pokedex_id, "name": name, "height": height, "weight": weight})
+    return pokemon

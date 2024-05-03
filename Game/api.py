@@ -6,7 +6,7 @@ from Api_func.standing_getter import get_standings
 from Api_func.types_getter import get_type, get_type_by_id
 from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
 from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
-from Api_func.user_setter import set_user_buy_pokeball
+from Api_func.user_setter import set_user_buy_items
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from json import load
@@ -85,7 +85,7 @@ def list_type_by_id(type_id):
 @app.route('/buy/<string:username>/<string:articles>/<int:number>/<int:price>')
 @app.route('/buy/<string:username>/<string:articles>/<int:number>/<int:price>/')
 def buy_article(username, articles, number, price):
-    return set_user_buy_pokeball(cur, username, number, articles, price), 200
+    return set_user_buy_items(cur, username, number, articles, price), 200
 
 @app.route('/pokeball')
 @app.route('/pokeball/')
