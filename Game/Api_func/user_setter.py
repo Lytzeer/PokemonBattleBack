@@ -1,5 +1,6 @@
 from .users_getter import get_user_id, get_money
-from .pokeball_getter import get_pokeball_by_id, get_random_pokemon
+from .pokeball_getter import get_pokeball_by_id
+from .pokemon_getter import get_random_pokemon
 
 def set_money(cur, username, money):
     user_id = get_user_id(cur, username)
