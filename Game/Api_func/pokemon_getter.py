@@ -46,6 +46,4 @@ def get_random_pokemon(cur):
     max_nb = cur.fetchone()[0]
     rnb = randint(1,max_nb)
     pokemon = get_pokemon_by_id(cur, rnb)
-    cur.execute("SELECT * FROM pokemon WHERE pokemon_id = ?", (rnb))
-    pokemon = cur.fetchone()
-    return pokemon
+    return pokemon[0]
