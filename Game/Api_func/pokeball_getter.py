@@ -15,6 +15,10 @@ def get_pokeball_by_id(cur, pokeball_id):
     for (pokeball_id, name, catch_rate, price) in cur:
         return {"pokeball_id": pokeball_id, "name": name, "catch_rate": catch_rate, "price": price}
     
+def get_pokeball_by_name(cur, pokeball_name):
+    cur.execute("SELECT * FROM pokeball WHERE name = ?", (pokeball_name,))
+    for (pokeball_id, name, catch_rate, price) in cur:
+        return {"pokeball_id": pokeball_id, "name": name, "catch_rate": catch_rate, "price": price}
 
 def get_max_pokeball_buyable(cur, username):
     money=get_money(cur, username)
