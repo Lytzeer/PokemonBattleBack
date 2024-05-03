@@ -4,8 +4,8 @@ from Api_func.move_getter import get_move, get_move_by_id
 from Api_func.users_getter import get_user_info
 from Api_func.standing_getter import get_standings
 from Api_func.types_getter import get_type, get_type_by_id
-from Api_func.pokeball_getter import get_pokeballs
-from Api_func.eggs_getter import get_eggs
+from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
+from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
 from Api_func.user_setter import set_user_buy_pokeball
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
@@ -97,10 +97,10 @@ def list_pokeball():
 def list_egg():
     return jsonify(get_eggs(cur)), 200
 
-@app.route('/shop')
-@app.route('/shop/')
-def shop():
-    return jsonify({"pokeballs": get_pokeballs(cur), "eggs": get_eggs(cur)}), 200
+@app.route('/shop/<string:username>')
+@app.route('/shop/<string:username>/')
+def shop(username):
+    return jsonify({"pokeballs": get_max_pokeball_buyable(cur, username), "eggs": get_max_egg_buyable(cur, username)}), 200
 
 @app.route('/login/<string:username>/<string:password>')
 @app.route('/login/<string:username>/<string:password>/')
