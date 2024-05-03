@@ -102,6 +102,16 @@ def list_egg():
 def shop():
     return jsonify({"pokeballs": get_pokeballs(cur), "eggs": get_eggs(cur)}), 200
 
+@app.route('/login/<string:username>/<string:password>')
+@app.route('/login/<string:username>/<string:password>/')
+def login():
+    return jsonify({"message": "Hello World"}), 200
+
+@app.route('/register/<string:username>/<string:password>/<string:email>')
+@app.route('/register/<string:username>/<string:password>/<string:email>/')
+def register():
+    return jsonify({"message": "Hello World"}), 200
+
 
 if __name__ == '__main__':
     cur = connect()
