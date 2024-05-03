@@ -45,8 +45,7 @@ def get_random_pokemon(cur):
     cur.execute("SELECT COUNT(*) FROM pokemon")
     max_nb = cur.fetchone()[0]
     rnb = randint(1,max_nb)
+    pokemon = get_pokemon_by_id(cur, rnb)
     cur.execute("SELECT * FROM pokemon WHERE pokemon_id = ?", (rnb))
-    pokemon = []
-    for (pokemon_id, pokedex_id, name, height, weight) in cur:
-        pokemon.append({"pokemon_id": pokemon_id, "pokedex_id": pokedex_id, "name": name, "height": height, "weight": weight})
+    pokemon = cur.fetchone()
     return pokemon
