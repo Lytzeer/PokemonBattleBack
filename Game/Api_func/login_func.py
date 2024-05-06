@@ -7,7 +7,7 @@ def check_login(cur, username, password):
         return {"message": False}
     else:
         bytes_password = password.encode('utf-8')
-        hash = bcrypt.hashpw(bytes_password)
+        hash = bcrypt.hashpw(bytes_password, bcrypt.gensalt())
         if bcrypt.checkpw(user[2], hash):
             return {"message": True}
         else:
@@ -23,7 +23,7 @@ def register_user(cur, username, password, password2, email):
             return {"message": False, "error": "Username already exists"}
         else:
             bytes_password = password.encode('utf-8')
-            hash = bcrypt.hashpw(bytes_password)
+            hash = bcrypt.hashpw(bytes_password, bcrypt.gensalt())
             cur.execute("INSERT INTO users (username, password, email, money) VALUES (?, ?, ?, 0)", (username, hash, email))
             cur.connection.commit()
             return {"message": True}
