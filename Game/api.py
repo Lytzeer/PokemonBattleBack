@@ -104,12 +104,12 @@ def shop(username):
 
 @app.route('/login/<string:username>/<string:password>')
 @app.route('/login/<string:username>/<string:password>/')
-def login():
+def login(username, password):
     return jsonify({"message": "Hello World"}), 200
 
 @app.route('/register/<string:username>/<string:password>/<string:email>')
 @app.route('/register/<string:username>/<string:password>/<string:email>/')
-def register():
+def register(username, password, email):
     return jsonify({"message": "Hello World"}), 200
 
 
