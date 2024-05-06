@@ -7,7 +7,7 @@ from Api_func.types_getter import get_type, get_type_by_id
 from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
 from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
 from Api_func.user_setter import set_user_buy_items
-from Api_func.login_func import check_login, register
+from Api_func.login_func import check_login, register_user
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from json import load
@@ -111,7 +111,7 @@ def login(username, password):
 @app.route('/register/<string:username>/<string:password>/<string:password2>/<string:email>')
 @app.route('/register/<string:username>/<string:password>/<string:password2>/<string:email>/')
 def register(username, password, password2, email):
-    return jsonify(register(username, password, password2, email)), 200
+    return jsonify(register_user(username, password, password2, email)), 200
 
 
 if __name__ == '__main__':
