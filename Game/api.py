@@ -106,12 +106,12 @@ def shop(username):
 @app.route('/login/<string:username>/<string:password>')
 @app.route('/login/<string:username>/<string:password>/')
 def login(username, password):
-    return jsonify(check_login(username, password)), 200
+    return jsonify(check_login(cur, username, password)), 200
 
 @app.route('/register/<string:username>/<string:password>/<string:password2>/<string:email>')
 @app.route('/register/<string:username>/<string:password>/<string:password2>/<string:email>/')
 def register(username, password, password2, email):
-    return jsonify(register_user(username, password, password2, email)), 200
+    return jsonify(register_user(cur, username, password, password2, email)), 200
 
 
 if __name__ == '__main__':
