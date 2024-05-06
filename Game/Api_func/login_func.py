@@ -8,7 +8,7 @@ def check_login(cur, username, password):
     else:
         bytes_password = password.encode('utf-8')
         hash = bcrypt.hashpw(bytes_password, bcrypt.gensalt())
-        if bcrypt.checkpw(user[2], hash):
+        if bcrypt.checkpw(user[2].encode('utf-8'), hash):
             return {"message": True}
         else:
             return {"message": False}
