@@ -13,7 +13,7 @@ def check_login(cur, username, password):
         else:
             return {"message": False}
         
-def register(cur, username, password, password2, email):
+def register_user(cur, username, password, password2, email):
     if password != password2:
         return {"message": False, "error": "Passwords do not match"}
     else:
