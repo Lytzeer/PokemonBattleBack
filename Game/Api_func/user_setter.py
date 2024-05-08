@@ -40,4 +40,9 @@ def set_new_password(cur, username, new_password):
     new_password = bcrypt.hashpw(bytes_password, salt)
     cur.execute("UPDATE users SET password = %s WHERE username = %s", (new_password, username))
     cur.connection.commit()
-    return {"message": "Password updated successfully", "username": username}
+    return {"message": "Password updated successfully", "username": username}*
+
+def delete_user(cur, username):
+    cur.execute("DELETE FROM users WHERE username = %s", (username,))
+    cur.connection.commit()
+    return {"message": "User deleted successfully", "username": username}
