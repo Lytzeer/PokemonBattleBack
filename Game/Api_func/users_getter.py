@@ -1,4 +1,4 @@
-from .pokemon_getter import get_user_pokemon, get_pokemon_by_id, get_pokemon_types_by_id
+from .pokemon_getter import get_pokemon_by_id, get_pokemon_types_by_id
 
 def get_user_info(cur, username):
     cur.execute("SELECT user_id FROM users WHERE username = ?", (username,))
