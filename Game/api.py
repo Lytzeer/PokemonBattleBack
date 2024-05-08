@@ -1,7 +1,7 @@
 from Database_Connector.connect_db import connect
 from Api_func.pokemon_getter import get_pokemon, get_pokemon_by_id, get_pokemon_types_by_id, get_pokemon_moves_by_id
 from Api_func.move_getter import get_move, get_move_by_id
-from Api_func.users_getter import get_user_info, get_user_pokemon
+from Api_func.users_getter import get_user_info, get_user_pokemon, get_all_user_pokemon
 from Api_func.standing_getter import get_standings
 from Api_func.types_getter import get_type, get_type_by_id
 from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
