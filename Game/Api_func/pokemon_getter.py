@@ -1,6 +1,5 @@
 from .types_getter import get_type_by_id
 from .move_getter import get_move_by_id
-from .users_getter import get_user_id
 from random import randint
 
 def get_pokemon(cur):
