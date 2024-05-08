@@ -57,7 +57,7 @@ def list_pokemon_types(pokemon_id):
 @app.route('/user_pokemon/<string:username>')
 @app.route('/user_pokemon/<string:username>/')
 def list_user_pokemon(username):
-    return jsonify(get_user_pokemon(cur, username)), 200
+    return jsonify(get_all_user_pokemon(cur, username)), 200
 
 @app.route('/user_info/<string:username>')
 @app.route('/user_info/<string:username>/')
