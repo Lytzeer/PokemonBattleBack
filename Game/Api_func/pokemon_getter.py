@@ -35,14 +35,6 @@ def get_pokemon_moves_by_id(cur, pokemon_id):
         pokemon_moves.append(move)
     return pokemon_moves
 
-def get_user_pokemon(cur, username):
-    user_id = get_user_id(cur, username)
-    cur.execute("SELECT user_id, pokemon_id FROM user_pokemon WHERE user_id = ?", (user_id,))
-    user_pokemon = []
-    for (user_id, pokemon_id) in cur:
-        user_pokemon.append({"user_id": user_id, "pokemon_id": pokemon_id})
-    return user_pokemon
-
 def get_random_pokemon(cur):
     cur.execute("SELECT COUNT(*) FROM pokemon")
     max_nb = cur.fetchone()[0]

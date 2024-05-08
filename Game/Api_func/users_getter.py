@@ -57,3 +57,11 @@ def get_money(cur, username):
     cur.execute("SELECT money FROM users WHERE user_id = ?", (user_id,))
     money = cur.fetchone()
     return money[0]
+
+def get_user_pokemon(cur, username):
+    user_id = get_user_id(cur, username)
+    cur.execute("SELECT * FROM user_pokemon WHERE user_id = ?", (user_id,))
+    user_pokemon = []
+    for (user_pokemon_id, user_id, pokemon_id) in cur:
+        user_pokemon.append({"user_pokemon_id": user_pokemon_id, "user_id": user_id, "pokemon_id": pokemon_id})
+    return user_pokemon
