@@ -1,4 +1,4 @@
-from .pokemon_getter import get_pokemon_by_id, get_pokemon_types_by_id
+from .pokemon_getter import get_user_pokemon, get_pokemon_by_id, get_pokemon_types_by_id
 
 def get_user_info(cur, username):
     cur.execute("SELECT user_id FROM users WHERE username = ?", (username,))
@@ -58,10 +58,18 @@ def get_money(cur, username):
     money = cur.fetchone()
     return money[0]
 
-def get_user_pokemon(cur, username):
-    user_id = get_user_id(cur, username)
+def get_user_pokemon(cur, user_id):
     cur.execute("SELECT * FROM user_pokemon WHERE user_id = ?", (user_id,))
     user_pokemon = []
     for (user_pokemon_id, user_id, pokemon_id) in cur:
         user_pokemon.append({"user_pokemon_id": user_pokemon_id, "user_id": user_id, "pokemon_id": pokemon_id})
     return user_pokemon
+
+def get_alluser_pokemon(cur, username):
+    user_id = get_user_id(cur, username)
+    user_pokemon = get_user_pokemon(cur, user_id)
+    pokemon_list = []
+    for pokemon in user_pokemon:
+        cur.execute("SELECT * FROM pokemon WHERE pokemon_id = ?", (pokemon["pokemon_id"],))
+        pokemon_list.append(cur.fetchone())
+    return pokemon_list
