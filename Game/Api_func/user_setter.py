@@ -26,11 +26,15 @@ def set_user_buy_items(cur, username, amount, article, price):
     return {"message": "Pokeball bought successfully", "article": article, "amount": amount, "price": amount*price}
 
 def set_new_username(cur, username, new_username):
+    if new_username == "":
+        return {"message": "Username can't be empty"}
     cur.execute("UPDATE users SET username = %s WHERE username = %s", (new_username, username))
     cur.connection.commit()
     return {"message": "Username updated successfully", "username": new_username}
 
 def set_new_password(cur, username, new_password):
+    if new_password == "":
+        return {"message": "Password can't be empty"}
     salt = get_salt().encode('utf-8')
     bytes_password = new_password.encode('utf-8')
     new_password = bcrypt.hashpw(bytes_password, salt)
