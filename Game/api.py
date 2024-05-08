@@ -54,10 +54,10 @@ def list_pokemon_moves(pokemon_id):
 def list_pokemon_types(pokemon_id):
     return jsonify(get_pokemon_types_by_id(cur, pokemon_id)), 200
 
-@app.route('/user_pokemon/<int:user_id>')
-@app.route('/user_pokemon/<int:user_id>/')
-def list_user_pokemon(user_id):
-    return jsonify(get_user_pokemon(cur, user_id)), 200
+@app.route('/user_pokemon/<string:username>')
+@app.route('/user_pokemon/<string:username>/')
+def list_user_pokemon(username):
+    return jsonify(get_user_pokemon(cur, username)), 200
 
 @app.route('/user_info/<string:username>')
 @app.route('/user_info/<string:username>/')
