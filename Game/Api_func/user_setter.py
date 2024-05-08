@@ -43,6 +43,9 @@ def set_new_password(cur, username, new_password):
     return {"message": "Password updated successfully", "username": username}
 
 def delete_user(cur, username):
-    cur.execute("DELETE FROM users WHERE username = %s", (username,))
+    user_id = get_user_id(cur, username)
+    cur.execute("DELETE FROM user_pokemon WHERE user_id = %s", (user_id,))
+    cur.execute("DELETE FROM user_pokeball WHERE user_id = %s", (user_id,))
+    cur.execute("DELETE FROM users WHERE user_id = %s", (user_id,))
     cur.connection.commit()
     return {"message": "User deleted successfully", "username": username}
