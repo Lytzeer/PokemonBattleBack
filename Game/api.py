@@ -6,7 +6,7 @@ from Api_func.standing_getter import get_standings
 from Api_func.types_getter import get_type, get_type_by_id
 from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
 from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
-from Api_func.user_setter import set_user_buy_items
+from Api_func.user_setter import set_user_buy_items, set_new_username, set_new_password
 from Api_func.login_func import check_login, register_user
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
@@ -67,6 +67,16 @@ def list_user_info(username):
         return jsonify({"error": "User not found"}), 404
     else:
         return {"username": username,"last_pokemon": data[0], "money": data[1], "standing_position": data[2]}
+    
+@app.route('/user_info/<string:username>/update_username/<string:new_username>')
+@app.route('/user_info/<string:username>/update_username/<string:new_username>/')
+def update_username(username, new_username):
+    return jsonify(set_new_username(cur, username, new_username)), 200
+
+@app.route('/user_info/<string:username>/update_password/<string:new_password>')
+@app.route('/user_info/<string:username>/update_password/<string:new_password>/')
+def update_password(username, new_password):
+    return jsonify(set_new_password(cur, username, new_password)), 200
 
 @app.route('/standing')
 @app.route('/standing/')
