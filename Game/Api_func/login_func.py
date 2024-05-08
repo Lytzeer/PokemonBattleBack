@@ -13,7 +13,7 @@ def check_login(cur, username, password):
         salt = get_salt().encode('utf-8')
         bytes_password = password.encode('utf-8')
         hash = bcrypt.hashpw(bytes_password, salt)
-        if user[3] == hash:
+        if user[3].encode('utf-8') == hash:
             return {"message": True}
         else:
             return {"message": False}
@@ -33,7 +33,7 @@ def register_user(cur, username, password, password2, email):
             cur.execute("INSERT INTO users (username, password, email, money) VALUES (?, ?, ?, 0)", (username, hash, email))
             cur.connection.commit()
             user_id = get_user_id(cur, username)
-            pokemon = choose_pokemon()
+            pokemon = choose_pokemon(cur)
             for i in range(4):
                 cur.execute("INSERT INTO user_pokemon (user_id, pokemon_id) VALUES (?,?)", (user_id,pokemon[i]['pokemon_id']))
             cur.connection.commit()
@@ -44,8 +44,8 @@ def get_salt():
         data = json.load(file)
     return data["seed"]
 
-def choose_pokemon():
-    pokemon = get_pokemon()
+def choose_pokemon(cur):
+    pokemon = get_pokemon(cur)
     pokemon_list = []
     for i in range(4):
         rnb = randint(0, len(pokemon)-1)
