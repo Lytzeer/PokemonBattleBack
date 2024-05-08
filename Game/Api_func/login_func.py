@@ -1,8 +1,8 @@
 import bcrypt
 import json
 from random import randint
-from users_getter import get_user_id
-from pokemon_getter import get_pokemon
+from .users_getter import get_user_id
+from .pokemon_getter import get_pokemon
 
 def check_login(cur, username, password):
     cur.execute("SELECT * FROM users WHERE username = ? ", (username,))
