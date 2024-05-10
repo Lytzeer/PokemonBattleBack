@@ -49,6 +49,7 @@ def get_random_pokemon(cur):
 def get_pokemon_stats(cur, pokemon_id):
     cur.execute("SELECT * FROM stats WHERE pokemon_id = ?", (pokemon_id,))
     data = cur.fetchone()
+    types = get_pokemon_types_by_id(cur, pokemon_id)
     stats = {}
     stats["health"]= data[1]
     stats["attack"]= data[2]
@@ -56,4 +57,7 @@ def get_pokemon_stats(cur, pokemon_id):
     stats["spe_attack"]= data[4]
     stats["spe_defense"]= data[5]
     stats["speed"]= data[6]
+    stats["type1"]= types[0]["name"]
+    if len(types) > 1:
+        stats["type2"]= types[1]["name"]
     return stats
