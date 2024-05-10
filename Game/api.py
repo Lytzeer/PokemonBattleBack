@@ -1,13 +1,14 @@
 from Database_Connector.connect_db import connect
-from Api_func.pokemon_getter import get_pokemon, get_pokemon_by_id, get_pokemon_types_by_id, get_pokemon_moves_by_id
+from Api_func.pokemon_getter import get_pokemon, get_pokemon_by_id, get_pokemon_types_by_id, get_pokemon_moves_by_id, get_pokemon_id, get_pokemon_stats
 from Api_func.move_getter import get_move, get_move_by_id
-from Api_func.users_getter import get_user_info, get_user_pokemon, get_all_user_pokemon
+from Api_func.users_getter import get_user_info, get_all_user_pokemon
 from Api_func.standing_getter import get_standings
 from Api_func.types_getter import get_type, get_type_by_id
 from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
 from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
 from Api_func.user_setter import set_user_buy_items, set_new_username, set_new_password, delete_user
 from Api_func.login_func import check_login, register_user
+from Api_func.battle import opposant_pokemon
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from json import load
@@ -127,6 +128,22 @@ def login(username, password):
 @app.route('/register/<string:username>/<string:password>/<string:password2>/<string:email>/')
 def register(username, password, password2, email):
     return jsonify(register_user(cur, username, password, password2, email)), 200
+
+@app.route('/battle/<string:pokemon_name>/<string:opponent_name>')
+@app.route('/battle/<string:pokemon_name>/<string:opponent_name>/')
+def battle(pokemon_name, opponent_name):
+    return jsonify({"error": "Not implemented yet"}), 501
+
+@app.route('/random_opponent')
+@app.route('/random_opponent/')
+def random_opponent():
+    return jsonify(opposant_pokemon(cur)), 200
+
+@app.route('/pokemon_stats/<string:pokemon_name>')
+@app.route('/pokemon_stats/<string:pokemon_name>/')
+def pokemon_stats(pokemon_name):
+    pokemon_id=get_pokemon_id(cur, pokemon_name)
+    return jsonify(get_pokemon_stats(cur, pokemon_id)), 200
 
 
 if __name__ == '__main__':
