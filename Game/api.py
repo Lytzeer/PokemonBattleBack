@@ -8,7 +8,7 @@ from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
 from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
 from Api_func.user_setter import set_user_buy_items, set_new_username, set_new_password, delete_user
 from Api_func.login_func import check_login, register_user
-from Api_func.battle import opposant_pokemon
+from Api_func.battle import opposant_pokemon, get_user_pokeballs, check_pokeball_catch
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from json import load
@@ -129,10 +129,6 @@ def login(username, password):
 def register(username, password, password2, email):
     return jsonify(register_user(cur, username, password, password2, email)), 200
 
-@app.route('/battle/<string:pokemon_name>/<string:opponent_name>')
-@app.route('/battle/<string:pokemon_name>/<string:opponent_name>/')
-def battle(pokemon_name, opponent_name):
-    return jsonify({"error": "Not implemented yet"}), 501
 
 @app.route('/random_opponent')
 @app.route('/random_opponent/')
@@ -144,6 +140,21 @@ def random_opponent():
 def pokemon_stats(pokemon_name):
     pokemon_id=get_pokemon_id(cur, pokemon_name)
     return jsonify(get_pokemon_stats(cur, pokemon_id)), 200
+
+@app.route('/battle/<string:pokemon_name1>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health>')
+@app.route('/battle/<string:pokemon_name1>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health>/')
+def battle(pokemon_name, attack_name, health, pokemon_name2, health2):
+    return jsonify({"error": "Not implemented yet"}), 501
+
+@app.route('/battle/pokeball/<string:username>')
+@app.route('/battle/pokeball/<string:username>/')
+def battle_pokeball(username):
+    return jsonify(get_user_pokeballs(cur, username)), 200
+
+@app.route('/battle/<string:pokeball_name>')
+@app.route('/battle/<string:pokeball_name>/')
+def catch(pokeball_name):
+    return jsonify(check_pokeball_catch(cur, pokeball_name)), 200
 
 
 if __name__ == '__main__':

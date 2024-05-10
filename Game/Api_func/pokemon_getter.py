@@ -50,7 +50,6 @@ def get_pokemon_stats(cur, pokemon_id):
     cur.execute("SELECT * FROM stats WHERE pokemon_id = ?", (pokemon_id,))
     data = cur.fetchone()
     types = get_pokemon_types_by_id(cur, pokemon_id)
-    print(types)
     stats = {}
     stats["health"]= data[1]
     stats["attack"]= data[2]
@@ -61,4 +60,9 @@ def get_pokemon_stats(cur, pokemon_id):
     stats["type1"]= types[0][0]["name"]
     if len(types) > 1:
         stats["type2"]= types[1][0]["name"]
+    moves = get_pokemon_moves_by_id(cur, pokemon_id)
+    stats["moves"]={}
+    order = 1
+    for move in moves:
+        stats["moves"][order] = {"name": move["name"], "power": move["power"], "type": get_type_by_id(cur, move["type_id"])[0]["name"]}
     return stats
