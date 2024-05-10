@@ -9,6 +9,11 @@ def get_pokemon(cur):
         pokemon_list.append({"pokemon_id": pokemon_id, "pokedex_id": pokedex_id, "name": name, "height": height, "weight": weight})
     return pokemon_list
 
+def get_pokemon_id(cur, pokemon_name):
+    cur.execute("SELECT pokemon_id FROM pokemon WHERE name = ?", (pokemon_name,))
+    pokemon_id = cur.fetchone()
+    return pokemon_id[0]
+
 def get_pokemon_by_id(cur, pokemon_id):
     cur.execute("SELECT * FROM pokemon WHERE pokemon_id = ?", (pokemon_id,))
     pokemon_list = []
@@ -40,3 +45,15 @@ def get_random_pokemon(cur):
     rnb = randint(1,max_nb)
     pokemon = get_pokemon_by_id(cur, rnb)
     return pokemon[0]
+
+def get_pokemon_stats(cur, pokemon_id):
+    cur.execute("SELECT * FROM stats WHERE pokemon_id = ?", (pokemon_id,))
+    data = cur.fetchone()
+    stats = {}
+    stats["health"]= data[1]
+    stats["attack"]= data[2]
+    stats["defense"]= data[3]
+    stats["spe_attack"]= data[4]
+    stats["spe_defense"]= data[5]
+    stats["speed"]= data[6]
+    return stats
