@@ -45,17 +45,17 @@ def match(cur,pokemon_name, attack_name, health, pokemon_name2, health2):
     if attack1_speed > attack2_speed:
         health2 -= round(attack1["power"]/2.5)
         if health2 <= 0:
-            return {"winner": pokemon_name}
+            return {"winner": "Player", "opponent_health": 0, "pokemon_health": health}
         health -= round(attack2["power"]/2.5)
         if health <= 0:
-            return {"winner": False}
+            return {"winner": "Trainer", "opponent_health": health2, "pokemon_health": 0}
     else:
         health -= round(attack2["power"]/2.5)
         if health <= 0:
-            return {"winner": pokemon_name2}
+            return {"winner": "Trainer", "opponent_health": health2, "pokemon_health": 0}
         health2 -= round(attack1["power"]/2.5)
         if health2 <= 0:
-            return {"winner": True}
+            return {"winner": "Player", "opponent_health": 0, "pokemon_health": health}
     return {"pokemon_health": health, "opponent_health": health2}
         
 
