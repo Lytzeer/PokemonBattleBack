@@ -8,7 +8,7 @@ from Api_func.pokeball_getter import get_pokeballs, get_max_pokeball_buyable
 from Api_func.eggs_getter import get_max_egg_buyable, get_eggs
 from Api_func.user_setter import set_user_buy_items, set_new_username, set_new_password, delete_user, set_catched_pokemon
 from Api_func.login_func import check_login, register_user
-from Api_func.battle import opposant_pokemon, get_user_pokeballs, check_pokeball_catch
+from Api_func.battle import opposant_pokemon, get_user_pokeballs, check_pokeball_catch, match
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from json import load
@@ -141,10 +141,10 @@ def pokemon_stats(pokemon_name):
     pokemon_id=get_pokemon_id(cur, pokemon_name)
     return jsonify(get_pokemon_stats(cur, pokemon_id)), 200
 
-@app.route('/battle/<string:pokemon_name1>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>')
-@app.route('/battle/<string:pokemon_name1>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>/')
+@app.route('/battle/<string:pokemon_name>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>')
+@app.route('/battle/<string:pokemon_name>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>/')
 def battle(pokemon_name, attack_name, health, pokemon_name2, health2):
-    return jsonify({"error": "Not implemented yet"}), 501
+    return jsonify({match(cur,pokemon_name, attack_name, health, pokemon_name2, health2)}), 200
 
 @app.route('/battle/pokeball/<string:username>')
 @app.route('/battle/pokeball/<string:username>/')
