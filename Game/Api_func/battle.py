@@ -13,10 +13,14 @@ def opposant_pokemon(cur):
     return pokemon
 
 def get_user_pokeballs(cur, username):
+    print(username)
     user_id = get_user_id(cur, username)
-    cur.execute("SELECT pokeball_id, amount FROM user_pokeball WHERE user_id = ?", (user_id,))
+    print(user_id)
+    cur.execute("SELECT DISTINCT pokeball_id, amount FROM user_pokeball WHERE user_id = ?", (user_id,))
+    rows = cur.fetchall()
     pokeballs = []
-    for (pokeball_id, amount) in cur:
+    for (pokeball_id, amount) in rows:
+        print(pokeball_id)
         pokeballs.append({"name": get_pokeball_by_id(cur, pokeball_id)["name"], "amount": amount})
     if len(pokeballs) == 0:
         return {"error": "User has no pokeballs"}

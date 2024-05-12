@@ -3,7 +3,7 @@ from .move_getter import get_move_by_id
 from random import randint
 
 def get_pokemon(cur):
-    cur.execute("SELECT * FROM pokemon")
+    cur.execute("SELECT * FROM pokemon WHERE pokemon_id <= 100 ORDER BY pokemon_id ASC")
     pokemon_list = []
     for (pokemon_id, pokedex_id, name, height, weight) in cur:
         pokemon_list.append({"pokemon_id": pokemon_id, "pokedex_id": pokedex_id, "name": name, "height": height, "weight": weight})

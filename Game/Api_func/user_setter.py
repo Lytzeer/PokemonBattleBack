@@ -49,3 +49,12 @@ def delete_user(cur, username):
     cur.execute("DELETE FROM users WHERE user_id = %s", (user_id,))
     cur.connection.commit()
     return {"message": "User deleted successfully", "username": username}
+
+def set_catched_pokemon(cur, username, pokemon_name):
+    user_id = get_user_id(cur, username)
+    cur.execute("SELECT pokemon_id FROM pokemon WHERE name = %s", (pokemon_name,))
+    pokemon_id = cur.fetchone()[0]
+    cur.execute("INSERT INTO user_pokemon (user_id, pokemon_id) VALUES (%s, %s)", (user_id, pokemon_id))
+    cur.connection.commit()
+    print("Pokemon catched successfully")
+    return {"message": "Pokemon catched successfully", "username": username, "pokemon": pokemon_name}
