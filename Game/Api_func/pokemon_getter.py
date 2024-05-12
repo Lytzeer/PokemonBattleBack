@@ -40,9 +40,7 @@ def get_pokemon_moves_by_id(cur, pokemon_id):
     return pokemon_moves
 
 def get_random_pokemon(cur):
-    cur.execute("SELECT COUNT(*) FROM pokemon")
-    max_nb = cur.fetchone()[0]
-    rnb = randint(1,max_nb)
+    rnb = randint(1,100)
     pokemon = get_pokemon_by_id(cur, rnb)
     return pokemon[0]
 
