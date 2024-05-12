@@ -21,9 +21,16 @@ def set_user_buy_items(cur, username, amount, article, price):
         return {"message": "Egg bought successfully", "article": article, "amount": amount, "price": amount*price, "pokemon": pokemon["name"]}
     pokeball = get_pokeball_by_name(cur, article)
     set_money(cur, username, amount*price)
-    cur.execute("INSERT INTO user_pokeball (user_id, pokeball_id, amount) VALUES (%s, %s, %s)", (user_id, pokeball["pokeball_id"], amount))
-    cur.connection.commit()
-    return {"message": "Pokeball bought successfully", "article": article, "amount": amount, "price": amount*price}
+    cur.execute("SELECT * FROM user_pokeball WHERE user_id = %s AND pokeball_id = %s", (user_id, pokeball["pokeball_id"]))
+    data = cur.fetchone()
+    if data==None:
+        cur.execute("INSERT INTO user_pokeball (user_id, pokeball_id, amount) VALUES (%s, %s, %s)", (user_id, pokeball["pokeball_id"], amount))
+        cur.connection.commit()
+        return {"message": "Pokeball bought successfully", "article": article, "amount": amount, "price": amount*price}
+    else:
+        cur.execute("UPDATE user_pokeball SET amount = %s WHERE user_id = %s AND pokeball_id = %s", (data[2]+amount, user_id, pokeball["pokeball_id"]))
+        cur.connection.commit()
+        return {"message": "Pokeball bought successfully", "article": article, "amount": amount, "price": amount*price}
 
 def set_new_username(cur, username, new_username):
     if new_username == "":
