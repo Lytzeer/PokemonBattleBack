@@ -141,10 +141,10 @@ def pokemon_stats(pokemon_name):
     pokemon_id=get_pokemon_id(cur, pokemon_name)
     return jsonify(get_pokemon_stats(cur, pokemon_id)), 200
 
-@app.route('/battle/<string:pokemon_name>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>')
-@app.route('/battle/<string:pokemon_name>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>/')
-def battle(pokemon_name, attack_name, health, pokemon_name2, health2):
-    return jsonify(match(cur,pokemon_name, attack_name, health, pokemon_name2, health2)), 200
+@app.route('/battle/<string:username>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>')
+@app.route('/battle/<string:username>/<string:attack_name>/<int:health>/<string:pokemon_name2>/<int:health2>/')
+def battle(username, attack_name, health, pokemon_name2, health2):
+    return jsonify(match(cur,username, attack_name, health, pokemon_name2, health2)), 200
 
 @app.route('/battle/pokeball/<string:username>')
 @app.route('/battle/pokeball/<string:username>/')
