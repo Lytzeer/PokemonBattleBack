@@ -33,28 +33,29 @@ def check_pokeball_catch(cur, pokeball_name):
     return {"result": rnb <= catch_rate}
 
 def match(cur,pokemon_name, attack_name, health, pokemon_name2, health2):
-    pokemon1 = get_pokemon_stats(cur, get_user_id(cur, pokemon_name))
-    pokemon2 = get_pokemon_stats(cur, get_user_id(cur, pokemon_name2))
     attack1 = get_move_by_name(cur, attack_name)
     opponent_id = get_pokemon_id(cur, pokemon_name2)
     opponent_attack = get_pokemon_stats(cur, opponent_id)
     attack2 = get_move_by_name(cur,opponent_attack["moves"][randint(0,3)]["name"])
     attack1_speed = attack1["speed"]
     attack2_speed = attack2["speed"]
+    if attack2["power"] == None:
+        attack2["power"] = 50
+
     if attack1_speed > attack2_speed:
-        health2 -= attack1["power"]
+        health2 -= round(attack1["power"]/2.5)
         if health2 <= 0:
             return {"winner": pokemon_name}
-        health -= attack2["power"]
+        health -= round(attack2["power"]/2.5)
         if health <= 0:
-            return {"winner": pokemon_name2}
+            return {"winner": False}
     else:
-        health -= attack2["power"]
+        health -= round(attack2["power"]/2.5)
         if health <= 0:
             return {"winner": pokemon_name2}
-        health2 -= attack1["power"]
+        health2 -= round(attack1["power"]/2.5)
         if health2 <= 0:
-            return {"winner": pokemon_name}
+            return {"winner": True}
     return {"pokemon_health": health, "opponent_health": health2}
         
 
