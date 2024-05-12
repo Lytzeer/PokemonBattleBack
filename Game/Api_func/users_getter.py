@@ -1,4 +1,4 @@
-from .pokemon_getter import get_pokemon_by_id, get_pokemon_types_by_id
+from .pokemon_getter import get_pokemon_by_id, get_pokemon_types_by_id, get_pokemon_stats
 
 def get_user_info(cur, username):
     cur.execute("SELECT user_id FROM users WHERE username = ?", (username,))
@@ -71,7 +71,7 @@ def get_all_user_pokemon(cur, username):
     pokemon_list = []
     for pokemon in user_pokemon:
         pokemon_info = get_pokemon_by_id(cur, pokemon["pokemon_id"])
-        pokemon_type = get_pokemon_types_by_id(cur, pokemon["pokemon_id"])
-        pokemon_info[0]["types"] = pokemon_type
+        pokemon_stats = get_pokemon_stats(cur, pokemon["pokemon_id"])
+        pokemon_info[0]["stats"] = pokemon_stats
         pokemon_list.append(pokemon_info[0])
     return pokemon_list
