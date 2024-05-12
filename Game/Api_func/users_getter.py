@@ -70,6 +70,8 @@ def get_all_user_pokemon(cur, username):
     user_pokemon = get_user_pokemon(cur, user_id)
     pokemon_list = []
     for pokemon in user_pokemon:
-        cur.execute("SELECT * FROM pokemon WHERE pokemon_id = ?", (pokemon["pokemon_id"],))
-        pokemon_list.append(cur.fetchone())
+        pokemon_info = get_pokemon_by_id(cur, pokemon["pokemon_id"])
+        pokemon_type = get_pokemon_types_by_id(cur, pokemon["pokemon_id"])
+        pokemon_info[0]["types"] = pokemon_type
+        pokemon_list.append(pokemon_info[0])
     return pokemon_list
