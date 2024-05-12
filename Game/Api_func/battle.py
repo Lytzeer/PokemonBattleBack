@@ -36,9 +36,9 @@ def match(cur,pokemon_name, attack_name, health, pokemon_name2, health2):
     attack1 = get_move_by_name(cur, attack_name)
     opponent_id = get_pokemon_id(cur, pokemon_name2)
     opponent_attack = get_pokemon_stats(cur, opponent_id)
-    attack2 = get_move_by_name(cur,opponent_attack["moves"][randint(0,3)]["name"])
-    attack1_speed = attack1["speed"]
-    attack2_speed = attack2["speed"]
+    attack2 = opponent_attack["moves"][randint(0, len(opponent_attack["moves"])-1)]
+    attack1_speed = attack1["priority"]
+    attack2_speed = attack2["priority"]
     if attack2["power"] == None:
         attack2["power"] = 50
 
