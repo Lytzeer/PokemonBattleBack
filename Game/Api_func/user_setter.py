@@ -65,3 +65,10 @@ def set_catched_pokemon(cur, username, pokemon_name):
     cur.connection.commit()
     print("Pokemon catched successfully")
     return {"message": "Pokemon catched successfully", "username": username, "pokemon": pokemon_name}
+
+def add_money(cur, username, amount):
+    user_id = get_user_id(cur, username)
+    current_money = get_money(cur, username)
+    cur.execute("UPDATE users SET money = %s WHERE user_id = %s", (current_money+amount, user_id))
+    cur.connection.commit()
+    return {"message": "Money added successfully", "username": username, "money": current_money+amount}

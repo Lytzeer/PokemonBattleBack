@@ -1,7 +1,7 @@
 from .pokemon_getter import get_random_pokemon, get_pokemon_stats, get_pokemon_id
 from .pokeball_getter import get_pokeball_by_id
 from .users_getter import get_user_id
-from .user_setter import set_money
+from .user_setter import add_money
 from .move_getter import get_move_by_name
 from random import randint
 
@@ -45,7 +45,7 @@ def match(cur,username, attack_name, health, pokemon_name2, health2):
     if attack1_speed > attack2_speed:
         health2 -= round(attack1["power"]/2.5)
         if health2 <= 0:
-            set_money(cur, username, 1500)
+            add_money(cur, username, 1500)
             return {"winner": "Player", "opponent_health": 0, "pokemon_health": health}
         health -= round(attack2["power"]/2.5)
         if health <= 0:
@@ -56,7 +56,7 @@ def match(cur,username, attack_name, health, pokemon_name2, health2):
             return {"winner": "Trainer", "opponent_health": health2, "pokemon_health": 0}
         health2 -= round(attack1["power"]/2.5)
         if health2 <= 0:
-            set_money(cur, username, 1500)
+            add_money(cur, username, 1500)
             return {"winner": "Player", "opponent_health": 0, "pokemon_health": health}
     return {"pokemon_health": health, "opponent_health": health2}
         
